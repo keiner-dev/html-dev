@@ -1,0 +1,27 @@
+Si ya las descargaste en tu PC, debes agregarlas con @font-face:
+
+@font-face {
+  font-family: 'MiFuente1';
+  src: url('./fonts/MiFuente1.ttf');
+}
+
+@font-face {
+  font-family: 'MiFuente2';
+  src: url('./fonts/MiFuente2.ttf');
+}
+
+Aquí es donde entra :root. Sirve para definir variables globales:
+:root {
+  --fuente-principal: 'MiFuente1', sans-serif;
+  --fuente-secundaria: 'MiFuente2', serif;
+}
+
+Después puedes llamarlas donde quieras:
+
+body {
+  font-family: var(--fuente-principal);
+}
+
+h1 {
+  font-family: var(--fuente-secundaria);
+}

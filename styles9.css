@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "MiFuentePersonalizada";
+    src: url("./fonts/lyrics/");
+}
+
+.fonts {
+    font-family: "MiFuentePersonalizada";
+    font-size: 20px;
+    color: #333;
+    
+}

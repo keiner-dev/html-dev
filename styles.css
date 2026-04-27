@@ -1,0 +1,675 @@
+/* =========================================
+   VARIABLES GLOBALES
+   ========================================= */
+:root {
+  --color-bg: #0d0b14;
+  --color-surface: #16121f;
+  --color-card: #1e1830;
+  --color-gold: #d4a435;
+  --color-gold-light: #f0c060;
+  --color-text: #f0eaf8;
+  --color-muted: #9b8fb0;
+  --color-border: #2e2545;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
+  --radius: 10px;
+  --transition: 0.3s ease;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================
+   RESET Y BASE
+   ========================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* =========================================
+   UTILIDADES
+   ========================================= */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+
+.section__title span {
+  color: var(--color-gold);
+}
+
+.section__sub {
+  color: var(--color-muted);
+  margin-bottom: 2.5rem;
+}
+
+/* =========================================
+   BOTONES
+   ========================================= */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  transition: var(--transition);
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.btn--primary {
+  background-color: var(--color-gold);
+  color: #0d0b14;
+}
+
+.btn--primary:hover {
+  background-color: var(--color-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 164, 53, 0.35);
+}
+
+.btn--ghost {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.btn--ghost:hover {
+  background-color: var(--color-gold);
+  color: #0d0b14;
+}
+
+.btn--outline {
+  border-color: var(--color-text);
+  color: var(--color-text);
+  font-size: 0.85rem;
+  padding: 0.55rem 1.2rem;
+}
+
+.btn--outline:hover {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: #0d0b14;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: rgba(13, 11, 20, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo__icon {
+  font-size: 1.4rem;
+}
+
+.logo__name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--color-text);
+}
+
+.logo__name em {
+  color: var(--color-gold);
+  font-style: normal;
+}
+
+/* Nav */
+.nav__list {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav__list a {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  transition: var(--transition);
+  letter-spacing: 0.03em;
+}
+
+.nav__list a:hover {
+  color: var(--color-gold);
+}
+
+/* Hamburger menu (mobile) */
+.menu-toggle {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 200;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background-color: var(--color-text);
+  transition: var(--transition);
+}
+
+/* =========================================
+   HERO
+   ========================================= */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: radial-gradient(ellipse at center top, #2a1a4a 0%, #0d0b14 60%);
+  overflow: hidden;
+}
+
+/* Overlay decorativo */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(212, 164, 53, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(150, 80, 200, 0.1) 0%, transparent 40%);
+  z-index: 0;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  padding: 0 1.5rem;
+  padding-top: 80px;
+}
+
+.hero__tag {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 1rem;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--color-text);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+  margin-bottom: 1.2rem;
+}
+
+.hero__subtitle {
+  font-size: 1.05rem;
+  color: var(--color-muted);
+  max-width: 500px;
+  margin: 0 auto 2rem;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* =========================================
+   FECHAS – TABLA
+   ========================================= */
+.fechas {
+  background-color: var(--color-surface);
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.tabla-fechas {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  min-width: 550px;
+}
+
+.tabla-fechas thead {
+  background-color: var(--color-gold);
+  color: #0d0b14;
+}
+
+.tabla-fechas th {
+  padding: 0.9rem 1.2rem;
+  text-align: left;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.tabla-fechas td {
+  padding: 0.85rem 1.2rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-muted);
+  transition: var(--transition);
+}
+
+.tabla-fechas tbody tr:hover td {
+  color: var(--color-text);
+  background-color: rgba(212, 164, 53, 0.06);
+}
+
+/* =========================================
+   SOBRE EL FESTIVAL
+   ========================================= */
+.sobre__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.sobre__texto p {
+  color: var(--color-muted);
+  margin-bottom: 1rem;
+}
+
+.sobre__texto h3 {
+  font-family: var(--font-display);
+  color: var(--color-gold);
+  margin: 1.5rem 0 0.75rem;
+  font-size: 1.15rem;
+}
+
+/* Lista semántica estilizada */
+.lista-exp {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.lista-exp li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.lista-exp li:hover {
+  color: var(--color-text);
+  padding-left: 4px;
+}
+
+/* Placeholder imagen */
+.img-placeholder {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 4rem;
+  color: var(--color-muted);
+}
+
+.img-placeholder p {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+/* =========================================
+   ZONAS TEMÁTICAS – GRID
+   ========================================= */
+.zonas {
+  background-color: var(--color-surface);
+}
+
+.zonas__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.zona-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.8rem 1.2rem;
+  text-align: center;
+  transition: var(--transition);
+  cursor: default;
+}
+
+.zona-card:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(212, 164, 53, 0.15);
+}
+
+.zona-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.zona-card h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.zona-card p {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+
+/* =========================================
+   GALERÍA – GRID
+   ========================================= */
+.galeria__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+.gal-item {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 2.5rem;
+  color: var(--color-muted);
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.gal-item:hover {
+  border-color: var(--color-gold);
+  transform: scale(1.02);
+}
+
+.gal-item p {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+/* Item grande ocupa 2 columnas */
+.gal-item--grande {
+  grid-column: span 2;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.footer {
+  background-color: #08060f;
+  border-top: 1px solid var(--color-border);
+  padding: 60px 0 0;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 3rem;
+}
+
+.footer__brand p {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  max-width: 250px;
+}
+
+.footer__links h4,
+.footer__contacto h4 {
+  font-family: var(--font-display);
+  color: var(--color-gold);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.footer__links ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer__links a {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.footer__links a:hover {
+  color: var(--color-gold);
+}
+
+.footer__contacto p {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.redes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.redes a {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+
+.redes a:hover {
+  color: var(--color-gold);
+}
+
+.footer__bottom {
+  border-top: 1px solid var(--color-border);
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+/* =========================================
+   RESPONSIVE – MEDIA QUERIES
+   ========================================= */
+
+/* Tablet (768px) */
+@media (max-width: 768px) {
+
+  /* Header: nav oculto, hamburger visible */
+  .hamburger {
+    display: flex;
+  }
+
+  .header__cta {
+    display: none;
+  }
+
+  .nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100vh;
+    background-color: var(--color-surface);
+    padding: 5rem 2rem 2rem;
+    z-index: 150;
+    border-left: 1px solid var(--color-border);
+  }
+
+  .menu-toggle:checked ~ .nav {
+    display: block;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .nav__list a {
+    font-size: 1.1rem;
+  }
+
+  /* Hero */
+  .hero__title {
+    font-size: 2.6rem;
+  }
+
+  /* Sobre: una columna */
+  .sobre__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .img-placeholder {
+    height: 220px;
+  }
+
+  /* Zonas */
+  .zonas__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Galería */
+  .galeria__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gal-item--grande {
+    grid-column: span 1;
+  }
+
+  /* Footer */
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer__brand {
+    grid-column: span 2;
+  }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+
+  .section {
+    padding: 55px 0;
+  }
+
+  .section__title {
+    font-size: 1.7rem;
+  }
+
+  /* Hero */
+  .hero__title {
+    font-size: 2.1rem;
+  }
+
+  .hero__subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Zonas: una columna */
+  .zonas__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Galería: una columna */
+  .galeria__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gal-item--grande {
+    grid-column: span 1;
+  }
+
+  /* Footer: una columna */
+  .footer__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer__brand {
+    grid-column: span 1;
+  }
+}

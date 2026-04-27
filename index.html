@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sabores de la Noche – Festival Gastronómico</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <div class="header__inner">
+      <div class="logo">
+        <span class="logo__icon">🌙</span>
+        <span class="logo__name">Sabores <em>de la Noche</em></span>
+      </div>
+
+      <!-- Menú hamburguesa (mobile) -->
+      <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+      <label for="menu-toggle" class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <nav class="nav">
+        <ul class="nav__list">
+          <li><a href="#fechas">Fechas</a></li>
+          <li><a href="#sobre">Festival</a></li>
+          <li><a href="#zonas">Zonas</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <a href="#fechas" class="btn btn--outline header__cta">Comprar Entrada</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero__overlay"></div>
+      <div class="hero__content">
+        <p class="hero__tag">Festival Gastronómico · 2025</p>
+        <h1 class="hero__title">Una Noche.<br />Mil Sabores.</h1>
+        <p class="hero__subtitle">El festival gastronómico que despierta tus sentidos. Comida del mundo, música en vivo y una noche que no olvidarás.</p>
+        <div class="hero__actions">
+          <a href="#fechas" class="btn btn--primary">Conoce Más</a>
+          <a href="#zonas" class="btn btn--ghost">Ver Zonas</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRÓXIMAS FECHAS (tabla) ===== -->
+    <section class="section fechas" id="fechas">
+      <div class="container">
+        <h2 class="section__title">Próximas <span>Fechas</span></h2>
+        <p class="section__sub">Elige tu ciudad y reserva tu lugar antes de que se agoten.</p>
+
+        <div class="table-wrap">
+          <table class="tabla-fechas">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Ciudad</th>
+                <th>Lugar</th>
+                <th>Horario</th>
+                <th>Atracción Principal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>17 Mayo</td>
+                <td>Barranquilla</td>
+                <td>Plaza de la Paz</td>
+                <td>6:00 PM – 11:00 PM</td>
+                <td>Street Food Show</td>
+              </tr>
+              <tr>
+                <td>24 Mayo</td>
+                <td>Cartagena</td>
+                <td>Muelle de los Pegasos</td>
+                <td>5:00 PM – 11:00 PM</td>
+                <td>Chef Invitado</td>
+              </tr>
+              <tr>
+                <td>31 Mayo</td>
+                <td>Santa Marta</td>
+                <td>Bahía Outdoor</td>
+                <td>5:30 PM – 11:30 PM</td>
+                <td>Música en Vivo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SOBRE EL FESTIVAL ===== -->
+    <section class="section sobre" id="sobre">
+      <div class="container sobre__grid">
+        <div class="sobre__texto">
+          <h2 class="section__title">Sobre el <span>Festival</span></h2>
+          <p>Sabores de la Noche es un encuentro único donde la gastronomía, la música y la cultura se unen para crear momentos inolvidables bajo las estrellas.</p>
+          <p>Más de 80 expositores culinarios, chefs reconocidos y artistas locales se reúnen en una celebración de los sentidos.</p>
+
+          <!-- Lista semántica obligatoria -->
+          <h3>¿Qué encontrarás?</h3>
+          <ul class="lista-exp">
+            <li>🍢 Food trucks y puestos artesanales</li>
+            <li>🎤 Música en vivo y DJ sets</li>
+            <li>🍷 Catas de vino y cócteles</li>
+            <li>👨‍🍳 Cocina en vivo con chefs</li>
+            <li>🎨 Arte y ambiente único</li>
+          </ul>
+        </div>
+        <div class="sobre__img">
+          <div class="img-placeholder">
+            <span>🍽️</span>
+            <p>Ambiente del Festival</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ZONAS TEMÁTICAS (Grid + Flexbox en cards) ===== -->
+    <section class="section zonas" id="zonas">
+      <div class="container">
+        <h2 class="section__title">Zonas <span>Temáticas</span></h2>
+        <p class="section__sub">Cada zona tiene su propio mundo de sabores.</p>
+
+        <div class="zonas__grid">
+          <article class="zona-card">
+            <div class="zona-card__icon">🌍</div>
+            <h3>Sabores del Mundo</h3>
+            <p>Platos de Asia, Europa y Latinoamérica en un solo lugar.</p>
+          </article>
+          <article class="zona-card">
+            <div class="zona-card__icon">🥘</div>
+            <h3>Cocina Local</h3>
+            <p>Lo mejor de la gastronomía caribeña y colombiana.</p>
+          </article>
+          <article class="zona-card">
+            <div class="zona-card__icon">🍮</div>
+            <h3>Postres & Dulces</h3>
+            <p>Chocolatería fina, pasteles y helados artesanales.</p>
+          </article>
+          <article class="zona-card">
+            <div class="zona-card__icon">🍹</div>
+            <h3>Bebidas & Cócteles</h3>
+            <p>Bar de autor, cerveza artesanal y bebidas sin alcohol.</p>
+          </article>
+          <article class="zona-card">
+            <div class="zona-card__icon">🎵</div>
+            <h3>Música & Arte</h3>
+            <p>Escenario principal con bandas en vivo toda la noche.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== GALERÍA ===== -->
+    <section class="section galeria" id="galeria">
+      <div class="container">
+        <h2 class="section__title">Galería</h2>
+        <p class="section__sub">Una probada de lo que te espera.</p>
+
+        <div class="galeria__grid">
+          <div class="gal-item gal-item--grande"><span>🌮</span><p>Street Food</p></div>
+          <div class="gal-item"><span>🎶</span><p>Música</p></div>
+          <div class="gal-item"><span>🍷</span><p>Catas</p></div>
+          <div class="gal-item"><span>🍰</span><p>Postres</p></div>
+          <div class="gal-item gal-item--grande"><span>👨‍🍳</span><p>Chef en Vivo</p></div>
+          <div class="gal-item"><span>🎨</span><p>Arte</p></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="contacto">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <span class="logo__name">🌙 Sabores <em>de la Noche</em></span>
+        <p>El festival que une sabor, música y cultura bajo las estrellas.</p>
+      </div>
+      <div class="footer__links">
+        <h4>Enlaces</h4>
+        <ul>
+          <li><a href="#fechas">Fechas</a></li>
+          <li><a href="#sobre">El Festival</a></li>
+          <li><a href="#zonas">Zonas</a></li>
+          <li><a href="#galeria">Galería</a></li>
+        </ul>
+      </div>
+      <div class="footer__contacto">
+        <h4>Contacto</h4>
+        <p>📧 info@saboresnoche.co</p>
+        <p>📞 +57 310 000 0000</p>
+        <div class="redes">
+          <a href="#">📸 Instagram</a>
+          <a href="#">🐦 Twitter</a>
+          <a href="#">👍 Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2025 Sabores de la Noche. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

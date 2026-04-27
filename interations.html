@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript – Interacciones Básicas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== VARIABLES ===== */
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --card: #222;
+      --border: #333;
+      --text: #f0f0f0;
+      --muted: #888;
+      --accent: #f0c040;
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      line-height: 1.7;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 2rem 1.5rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    header .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ===== LAYOUT PRINCIPAL ===== */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* ===== TARJETA DE INTERACCIÓN ===== */
+    .card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+    }
+
+    .card__num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      margin-bottom: 0.4rem;
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .card .desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      line-height: 1.6;
+    }
+
+    /* Zona de demostración */
+    .demo {
+      background-color: #111;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    /* Texto demo editable */
+    #texto-demo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      transition: color 0.3s ease, font-family 0.3s ease;
+    }
+
+    /* Caja de mensaje */
+    #caja-mensaje {
+      background-color: var(--accent);
+      color: #111;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: none;
+      animation: aparecer 0.3s ease;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== BOTONES ===== */
+    .botones {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      padding: 0.55rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      letter-spacing: 0.04em;
+    }
+
+    .btn:hover {
+      background-color: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+    }
+
+    .btn--accent {
+      background-color: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    .btn--accent:hover {
+      background-color: #ffd966;
+      border-color: #ffd966;
+    }
+
+    /* ===== BLOQUE DE CÓDIGO ===== */
+    .codigo {
+      background-color: #111;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      overflow-x: auto;
+    }
+
+    .codigo pre {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: #ccc;
+      white-space: pre;
+    }
+
+    /* Colores del código */
+    .c-coment  { color: #555; }
+    .c-keyword { color: #c792ea; }
+    .c-string  { color: #c3e88d; }
+    .c-fn      { color: #82aaff; }
+    .c-var     { color: #f07178; }
+    .c-prop    { color: #ffcb6b; }
+
+    /* ===== EXPLICACIÓN LÍNEA A LÍNEA ===== */
+    .explicacion {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .linea {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.8rem;
+      align-items: start;
+      font-size: 0.85rem;
+    }
+
+    .linea__num {
+      font-family: 'Space Mono', monospace;
+      color: var(--accent);
+      font-size: 0.75rem;
+      min-width: 24px;
+      padding-top: 2px;
+    }
+
+    .linea__texto {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .linea__texto strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    /* ===== SEPARADOR ===== */
+    .separador {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0.5rem 0;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 3rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5rem; }
+      main { padding: 1.2rem; gap: 1.5rem; }
+      .card { padding: 1.2rem; }
+      .botones { gap: 0.5rem; }
+      .btn { font-size: 0.72rem; padding: 0.5rem 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="tag">// JavaScript · Interacciones Básicas</p>
+    <h1>Aprende haciendo clic</h1>
+    <p>Cada tarjeta tiene un botón funcional, el código que lo hace posible y la explicación línea por línea.</p>
+  </header>
+
+  <main>
+
+    <!-- ============================
+         INTERACCIÓN 1: CAMBIAR COLOR
+         ============================ -->
+    <div class="card">
+      <p class="card__num">// 01</p>
+      <h2>Cambiar el color del texto</h2>
+      <p class="desc">Al hacer clic en un botón, JavaScript modifica la propiedad <strong>style.color</strong> del elemento. Pruébalo:</p>
+
+      <div class="demo">
+        <p id="texto-demo">Este texto cambia de color</p>
+        <div class="botones">
+          <button class="btn" onclick="cambiarColor('tomato')">🔴 Rojo</button>
+          <button class="btn" onclick="cambiarColor('#4fc3f7')">🔵 Azul</button>
+          <button class="btn" onclick="cambiarColor('#a5d6a7')">🟢 Verde</button>
+          <button class="btn" onclick="cambiarColor('#f0c040')">🟡 Amarillo</button>
+          <button class="btn" onclick="cambiarColor('#f0f0f0')">⬜ Blanco</button>
+        </div>
+      </div>
+
+      <div class="codigo">
+        <pre>
+<span class="c-coment">// Seleccionamos el elemento por su id</span>
+<span class="c-keyword">function</span> <span class="c-fn">cambiarColor</span>(<span class="c-var">color</span>) {
+  <span class="c-keyword">const</span> <span class="c-var">elemento</span> = document.<span class="c-fn">getElementById</span>(<span class="c-string">'texto-demo'</span>);
+  <span class="c-var">elemento</span>.style.<span class="c-prop">color</span> = <span class="c-var">color</span>;
+}</pre>
+      </div>
+
+      <div class="explicacion">
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>function cambiarColor(color)</strong> — define una función que recibe el color como parámetro.</span>
+        </div>
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>document.getElementById('texto-demo')</strong> — busca en el HTML el elemento que tenga ese id.</span>
+        </div>
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>elemento.style.color = color</strong> — cambia el color del texto directamente desde JavaScript.</span>
+        </div>
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>onclick="cambiarColor('rojo')"</strong> — en el HTML, esto llama a la función al hacer clic y le pasa el valor.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================
+         INTERACCIÓN 2: CAMBIAR FUENTE
+         ============================ -->
+    <div class="card">
+      <p class="card__num">// 02</p>
+      <h2>Cambiar el tipo de letra</h2>
+      <p class="desc">Con <strong>style.fontFamily</strong> puedes cambiar la fuente de cualquier elemento. Las fuentes del sistema siempre están disponibles.</p>
+
+      <div class="demo">
+        <p id="texto-fuente" style="font-size:1.2rem; transition: font-family 0.3s;">El tipo de letra puede cambiar</p>
+        <div class="botones">
+          <button class="btn" onclick="cambiarFuente('Georgia, serif')">Georgia</button>
+          <button class="btn" onclick="cambiarFuente('Courier New, monospace')">Courier New</button>
+          <button class="btn" onclick="cambiarFuente('Impact, fantasy')">Impact</button>
+          <button class="btn" onclick="cambiarFuente('Syne, sans-serif')">Original</button>
+        </div>
+      </div>
+
+      <div class="codigo">
+        <pre>
+<span class="c-keyword">function</span> <span class="c-fn">cambiarFuente</span>(<span class="c-var">fuente</span>) {
+  <span class="c-keyword">const</span> <span class="c-var">elemento</span> = document.<span class="c-fn">getElementById</span>(<span class="c-string">'texto-fuente'</span>);
+  <span class="c-var">elemento</span>.style.<span class="c-prop">fontFamily</span> = <span class="c-var">fuente</span>;
+}</pre>
+      </div>
+
+      <div class="explicacion">
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>style.fontFamily</strong> — en JavaScript las propiedades CSS con guión se escriben en camelCase: font-family → fontFamily.</span>
+        </div>
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto">Puedes pasar cualquier fuente del sistema: <strong>serif, sans-serif, monospace, cursive, fantasy</strong>.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================
+         INTERACCIÓN 3: MOSTRAR MENSAJE
+         ============================ -->
+    <div class="card">
+      <p class="card__num">// 03</p>
+      <h2>Mostrar y ocultar un mensaje</h2>
+      <p class="desc">Usamos <strong>style.display</strong> para mostrar u ocultar un elemento sin borrarlo del HTML.</p>
+
+      <div class="demo">
+        <div id="caja-mensaje">¡Hola! Soy un mensaje oculto 👋</div>
+        <div class="botones">
+          <button class="btn btn--accent" onclick="mostrarMensaje()">Mostrar mensaje</button>
+          <button class="btn" onclick="ocultarMensaje()">Ocultar mensaje</button>
+        </div>
+      </div>
+
+      <div class="codigo">
+        <pre>
+<span class="c-keyword">function</span> <span class="c-fn">mostrarMensaje</span>() {
+  <span class="c-keyword">const</span> <span class="c-var">caja</span> = document.<span class="c-fn">getElementById</span>(<span class="c-string">'caja-mensaje'</span>);
+  <span class="c-var">caja</span>.style.<span class="c-prop">display</span> = <span class="c-string">'block'</span>;
+}
+
+<span class="c-keyword">function</span> <span class="c-fn">ocultarMensaje</span>() {
+  <span class="c-keyword">const</span> <span class="c-var">caja</span> = document.<span class="c-fn">getElementById</span>(<span class="c-string">'caja-mensaje'</span>);
+  <span class="c-var">caja</span>.style.<span class="c-prop">display</span> = <span class="c-string">'none'</span>;
+}</pre>
+      </div>
+
+      <div class="explicacion">
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>display: 'none'</strong> — oculta el elemento. Sigue existiendo en el HTML, solo deja de verse.</span>
+        </div>
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>display: 'block'</strong> — lo vuelve visible como un bloque (ocupa su propia línea).</span>
+        </div>
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto">En el CSS el elemento arranca con <strong>display: none</strong>, así empieza oculto cuando carga la página.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================
+         INTERACCIÓN 4: CAMBIAR FONDO
+         ============================ -->
+    <div class="card">
+      <p class="card__num">// 04</p>
+      <h2>Cambiar el fondo de toda la página</h2>
+      <p class="desc">Con <strong>document.body</strong> accedemos al elemento <code>&lt;body&gt;</code> directamente y cambiamos su color de fondo.</p>
+
+      <div class="demo">
+        <p style="font-size:0.9rem; color: var(--muted);">El fondo de toda la página cambiará:</p>
+        <div class="botones">
+          <button class="btn" onclick="cambiarFondo('#0f0f0f')">⬛ Original</button>
+          <button class="btn" onclick="cambiarFondo('#1a2a1a')">🌲 Verde oscuro</button>
+          <button class="btn" onclick="cambiarFondo('#1a1a2e')">🌌 Azul noche</button>
+          <button class="btn" onclick="cambiarFondo('#2a1a1a')">🍷 Vino</button>
+          <button class="btn" onclick="cambiarFondo('#f5f0e8')">☀️ Claro</button>
+        </div>
+      </div>
+
+      <div class="codigo">
+        <pre>
+<span class="c-keyword">function</span> <span class="c-fn">cambiarFondo</span>(<span class="c-var">color</span>) {
+  document.<span class="c-prop">body</span>.style.<span class="c-prop">backgroundColor</span> = <span class="c-var">color</span>;
+}</pre>
+      </div>
+
+      <div class="explicacion">
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>document.body</strong> — es el &lt;body&gt; de tu HTML. No necesitas getElementById porque siempre hay uno solo.</span>
+        </div>
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>style.backgroundColor</strong> — la propiedad CSS background-color escrita en camelCase.</span>
+        </div>
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto">La transición suave ya está definida en el CSS del body con <strong>transition: background-color 0.4s ease</strong>.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================
+         INTERACCIÓN 5: BONUS – TOGGLE
+         ============================ -->
+    <div class="card">
+      <p class="card__num">// 05 · Bonus</p>
+      <h2>Alternar con un solo botón (toggle)</h2>
+      <p class="desc">En lugar de dos botones, un solo botón puede alternar entre dos estados usando una variable o <strong>classList.toggle</strong>.</p>
+
+      <div class="demo">
+        <p id="texto-toggle" style="font-size:1.1rem; transition: all 0.3s;">¿Oscuro o claro?</p>
+        <button class="btn btn--accent" onclick="alternarModo()">Alternar modo</button>
+      </div>
+
+      <div class="codigo">
+        <pre>
+<span class="c-coment">// Variable que guarda el estado actual</span>
+<span class="c-keyword">let</span> <span class="c-var">modoOscuro</span> = <span class="c-keyword">true</span>;
+
+<span class="c-keyword">function</span> <span class="c-fn">alternarModo</span>() {
+  <span class="c-keyword">const</span> <span class="c-var">texto</span> = document.<span class="c-fn">getElementById</span>(<span class="c-string">'texto-toggle'</span>);
+
+  <span class="c-keyword">if</span> (<span class="c-var">modoOscuro</span>) {
+    <span class="c-var">texto</span>.style.<span class="c-prop">color</span> = <span class="c-string">'#111'</span>;
+    <span class="c-var">texto</span>.style.<span class="c-prop">backgroundColor</span> = <span class="c-string">'#f5f0e8'</span>;
+    <span class="c-var">texto</span>.style.<span class="c-prop">padding</span> = <span class="c-string">'0.5rem 1rem'</span>;
+    <span class="c-var">texto</span>.style.<span class="c-prop">borderRadius</span> = <span class="c-string">'8px'</span>;
+  } <span class="c-keyword">else</span> {
+    <span class="c-var">texto</span>.style.<span class="c-prop">color</span> = <span class="c-string">'#f0f0f0'</span>;
+    <span class="c-var">texto</span>.style.<span class="c-prop">backgroundColor</span> = <span class="c-string">'transparent'</span>;
+  }
+
+  <span class="c-coment">// Invertimos el estado para la próxima vez</span>
+  <span class="c-var">modoOscuro</span> = !<span class="c-var">modoOscuro</span>;
+}</pre>
+      </div>
+
+      <div class="explicacion">
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>let modoOscuro = true</strong> — una variable que recuerda en qué estado estamos actualmente.</span>
+        </div>
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>if / else</strong> — si es oscuro aplica estilos claros, si no, aplica estilos oscuros.</span>
+        </div>
+        <div class="linea">
+          <span class="linea__num">→</span>
+          <span class="linea__texto"><strong>modoOscuro = !modoOscuro</strong> — el operador <strong>!</strong> invierte el valor. true → false, false → true.</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>// Todos los ejemplos usan JavaScript puro · Sin librerías · Sin frameworks</p>
+  </footer>
+
+  <script>
+    // =============================
+    // FUNCIÓN 1 – Cambiar color
+    // =============================
+    function cambiarColor(color) {
+      const elemento = document.getElementById('texto-demo');
+      elemento.style.color = color;
+    }
+
+    // =============================
+    // FUNCIÓN 2 – Cambiar fuente
+    // =============================
+    function cambiarFuente(fuente) {
+      const elemento = document.getElementById('texto-fuente');
+      elemento.style.fontFamily = fuente;
+    }
+
+    // =============================
+    // FUNCIÓN 3 – Mostrar / ocultar
+    // =============================
+    function mostrarMensaje() {
+      const caja = document.getElementById('caja-mensaje');
+      caja.style.display = 'block';
+    }
+
+    function ocultarMensaje() {
+      const caja = document.getElementById('caja-mensaje');
+      caja.style.display = 'none';
+    }
+
+    // =============================
+    // FUNCIÓN 4 – Cambiar fondo
+    // =============================
+    function cambiarFondo(color) {
+      document.body.style.backgroundColor = color;
+    }
+
+    // =============================
+    // FUNCIÓN 5 – Toggle
+    // =============================
+    let modoOscuro = true;
+
+    function alternarModo() {
+      const texto = document.getElementById('texto-toggle');
+
+      if (modoOscuro) {
+        texto.style.color = '#111';
+        texto.style.backgroundColor = '#f5f0e8';
+        texto.style.padding = '0.5rem 1rem';
+        texto.style.borderRadius = '8px';
+      } else {
+        texto.style.color = '#f0f0f0';
+        texto.style.backgroundColor = 'transparent';
+        texto.style.padding = '0';
+      }
+
+      modoOscuro = !modoOscuro;
+    }
+  </script>
+
+</body>
+</html>
